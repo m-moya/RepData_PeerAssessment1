@@ -14,7 +14,7 @@ https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip
 
 The data used in the following analysis was in the RepData_PeerAssessment for on GitHub on 2015-07-17.
 
-The github directory was cloned to a Github subdirectory of my home directory and the data loaded and accessed from there.  The data contains a header for the first row and dates in the second column.  The data was loaded with stringsAsFactors=FALSE to keep the date column as a 'character' type.
+The GitHub directory was cloned to a Github subdirectory of my home directory and the data loaded and accessed from there.  The data contains a header for the first row and dates in the second column.  The data was loaded with stringsAsFactors=FALSE to keep the date column as a 'character' type.
 
 ```r
 setwd("~/GitHub/RepData_PeerAssessment1")
@@ -36,6 +36,7 @@ hist(total$steps, xlab='TotalSteps per Day', col='blue',
 ```
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
+
 The mean was calculated as:
 
 ```r
@@ -55,11 +56,9 @@ median(total$steps, na.rm=TRUE)
 ## [1] 10765
 ```
 
-
-
 ## What is the average daily activity pattern?
 
-To answer this question, the steps the mean was calculated for each 5 minute interval. NA's were removed from the calculation. 
+To answer this question, the mean of the steps was calculated for each 5 minute interval over all days. NA's were removed from the calculation. 
 
 
 ```r
@@ -93,8 +92,8 @@ total.na = sum(is.na(activity$steps))
 ```
 The total NA's were 2304. 
 
-A strategy to for filling in the missing values could be to use the mean for the 5 minute interval calculated above.
-This was implemented by copying the daily.activity means calculated above to a copy of the original activity dataset. All NAs were then replaced with the corresponding mean values.
+A strategy to for filling in the missing values would be to use the mean for the 5 minute interval calculated above.
+This was implemented by copying the daily.activity means calculated above to a copy of the original activity dataset, activity2. All NAs were then replaced with the corresponding mean values.
 
 
 ```r
@@ -108,7 +107,8 @@ The histogram, mean and median values were recomputed with the new dataset.
 total2 <- activity2 %>%
  group_by(date) %>%
  summarize(steps = sum(steps))
-hist(total2$steps)
+hist(total2$steps, xlab='TotalSteps per Day', col='blue',
+     main='Histogram of Total Steps Per Day')
 ```
 
 ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
@@ -131,10 +131,11 @@ median(total2$steps, na.rm=TRUE)
 ```
 ## [1] 10766.19
 ```
-The differences were slighly noticeable between the new histogram and the previous (a slight change in scale).
+
+The differences were slighly noticeable between the new histogram and the previous (a slight change in scale).  The mean did not change and the median changed slightly.
 
 ## Are there differences in activity patterns between weekdays and weekends?
-To answer this questing, the imputed data was seperated by weekdays and weekends, by adding a new variable were the weekday/weekend was calculated
+To answer this question, the imputed data was separated by weekdays and weekends, by adding a new variable were the weekday/weekend was calculated
 
 ```r
 activity2$daytype <- as.factor(ifelse(grepl('^S', weekdays(as.Date(activity2$date))), "weekend", "weekday"))
@@ -151,4 +152,5 @@ type = "l", lty = 1, strip.left = TRUE, strip = FALSE, layout=c(1,2))
 ```
 
 ![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
-The graphs show some differences between the weekday and weekend activity patterns.
+
+The graphs show some differences between the weekday and weekend activity patterns. The weekday activity has a large step activity early in the day and the weekend activity is more spread out through the day.
