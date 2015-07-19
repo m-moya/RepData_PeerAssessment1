@@ -68,6 +68,7 @@ plot(names(daily.activity), daily.activity, type='l', xlab='Time of day', ylab='
 ```
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+
 Note: The interval column codes the time as HHMM, so that 1055 is 10:55AM and 2030 is 8:30PM.  The interval is represented as an integer from 0 to 2355.  There are no numbers between 60 and 99 for each hundreds.  Due to the scale of the graph this is not noticeable and this does affect any of the following calculations.  
 
 To determine the 5-minute interval that contains the maximum number of steps on average.  The activity result was sorted descending and the maximum interval found.
@@ -111,6 +112,7 @@ hist(total2$steps)
 ```
 
 ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
+
 The mean was calculated as:
 
 ```r

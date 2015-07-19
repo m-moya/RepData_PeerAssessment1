@@ -51,6 +51,7 @@ To answer this question, the steps the mean was calculated for each 5 minute int
 daily.activity <- tapply(activity$steps, activity$interval, mean, na.rm=TRUE)
 plot(names(daily.activity), daily.activity, type='l', xlab='Time of day', ylab='Average Steps')
 ```
+
 Note: The interval column codes the time as HHMM, so that 1055 is 10:55AM and 2030 is 8:30PM.  The interval is represented as an integer from 0 to 2355.  There are no numbers between 60 and 99 for each hundreds.  Due to the scale of the graph this is not noticeable and this does affect any of the following calculations.  
 
 To determine the 5-minute interval that contains the maximum number of steps on average.  The activity result was sorted descending and the maximum interval found.
@@ -83,6 +84,7 @@ total2 <- activity2 %>%
  summarize(steps = sum(steps))
 hist(total2$steps)
 ```
+
 The mean was calculated as:
 ```{r}
 mean(total2$steps, na.rm=TRUE)
